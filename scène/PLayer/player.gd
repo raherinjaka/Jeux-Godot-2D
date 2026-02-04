@@ -72,7 +72,7 @@ func _physics_process(delta):
 	# 0 = bord gauche/haut, screen_size = bord droit/bas
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
-	
+	#ceci est untest
 func handle_movement(_delta):
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	velocity = direction * speed

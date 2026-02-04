@@ -7,7 +7,6 @@ func _ready():
 func _process(delta):
 	pass
 
-
 func _on_quit_pressed():
 	Transition.change_scene("res://scène/Menu/MenuSpacial.tscn")
 
