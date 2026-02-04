@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://c76b8xbehdemu"]
+
+[ext_resource type="Script" path="res://scène/arme/enemy_projectile.gd" id="1_nmyfg"]
+[ext_resource type="Texture2D" uid="uid://b1al0mjsvavy0" path="res://asset/outil/ChatGPT Image 31 juil. 2025, 13_55_40.png" id="1_qoirt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6fy5u"]
+size = Vector2(33.1154, 5.02358)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_foy1h"]
+radius = 18.0
+
+[node name="EnemyProjectile" type="Area2D" groups=["enemy_projectiles"]]
+light_mask = 17
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_nmyfg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.677414
+scale = Vector2(0.0301996, 0.0310569)
+texture = ExtResource("1_qoirt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.500001, 0.5)
+rotation = 0.0251679
+shape = SubResource("RectangleShape2D_6fy5u")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1, 0.5)
+scale = Vector2(1.9, 0.55)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 4)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, -3)
+shape = SubResource("CircleShape2D_foy1h")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

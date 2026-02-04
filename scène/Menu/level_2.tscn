@@ -1,0 +1,129 @@
+[gd_scene load_steps=13 format=3 uid="uid://sapprdmpw4vo"]
+
+[ext_resource type="PackedScene" uid="uid://cp0qn372ayn58" path="res://scène/PLayer/player.tscn" id="2_2aoef"]
+[ext_resource type="PackedScene" uid="uid://bb5elcfnell1c" path="res://scène/Menu/game_over_hud.tscn" id="2_w5pus"]
+[ext_resource type="PackedScene" uid="uid://dy2xibi3ce1b2" path="res://scène/Enemy/turret.tscn" id="3_0y52k"]
+[ext_resource type="Texture2D" uid="uid://c14elslkh7fo4" path="res://asset/outil/Ville/buildings-bg.png" id="4_7rwjh"]
+[ext_resource type="FontFile" uid="uid://dsyj1hnp4cavy" path="res://asset/Fonts/Riclane.ttf" id="4_h8uf0"]
+[ext_resource type="PackedScene" uid="uid://dwwo6gigbvicc" path="res://asset/Vie/life_bar.tscn" id="4_pqe15"]
+[ext_resource type="AudioStream" uid="uid://5jrdkogfegod" path="res://asset/Music/Menu/CLOCKTick_Chronometre 2 (ID 2138)_LaSonotheque.fr.wav" id="4_wvggu"]
+[ext_resource type="FontFile" uid="uid://5p0cpoofmx72" path="res://asset/Fonts/PixelOperator8.ttf" id="5_6um3g"]
+[ext_resource type="Texture2D" uid="uid://78kjh1wqt2we" path="res://asset/outil/Ville/near-buildings-bg.png" id="5_apegc"]
+[ext_resource type="Texture2D" uid="uid://d2v00hfyp8mk" path="res://asset/Fond/Noir.png" id="5_pavuj"]
+[ext_resource type="Script" path="res://scène/Menu/SpawnerPosition.gd" id="10_oy10a"]
+
+[sub_resource type="GDScript" id="GDScript_1ftph"]
+script/source = "extends Node2D
+
+@onready var label = $CanvasLayer/CountdownLabel
+@onready var sound = $CountdownSound
+
+func _ready():
+	GameManager.stop_game()
+	run_countdown()
+
+func run_countdown():
+	for i in range(3, 0, -1):
+		label.text = str(i)
+		
+		sound.play()
+		await get_tree().create_timer(0.8).timeout
+		sound.stop()
+		await get_tree().create_timer(0.2).timeout
+	
+	label.text = \"GO!\"
+	sound.stop()
+	
+	await get_tree().create_timer(0.5).timeout
+	label.hide()
+	
+	GameManager.start_game()
+
+"
+
+[node name="Level2" type="Node2D"]
+script = SubResource("GDScript_1ftph")
+
+[node name="GameOverHud" parent="." instance=ExtResource("2_w5pus")]
+visible = false
+
+[node name="Player" parent="." instance=ExtResource("2_2aoef")]
+
+[node name="Turret" parent="." instance=ExtResource("3_0y52k")]
+position = Vector2(552, 500)
+
+[node name="CountdownSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_wvggu")
+pitch_scale = 0.51
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.115
+anchor_right = 0.21
+anchor_bottom = 0.045
+offset_left = -0.479996
+offset_top = 6.0
+offset_right = 0.0799866
+offset_bottom = -0.160002
+theme_override_fonts/font = ExtResource("5_6um3g")
+theme_override_font_sizes/font_size = 18
+text = "Level 2"
+
+[node name="LifeBar" parent="CanvasLayer" instance=ExtResource("4_pqe15")]
+anchor_right = 0.056
+anchor_bottom = 0.06
+offset_right = -0.512001
+offset_bottom = 0.119999
+
+[node name="CountdownLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_h8uf0")
+theme_override_font_sizes/font_size = 80
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+motion_mirroring = Vector2(1500, 0)
+
+[node name="Sprite2D4" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
+z_index = -45
+position = Vector2(1169, 373.5)
+scale = Vector2(20.6504, 40.4231)
+texture = ExtResource("5_pavuj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
+position = Vector2(693.5, 332.5)
+scale = Vector2(9.64583, 7.89516)
+texture = ExtResource("4_7rwjh")
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
+position = Vector2(346.125, 558.313)
+scale = Vector2(1.39097, 2.54246)
+texture = ExtResource("5_apegc")
+
+[node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
+position = Vector2(877, 566)
+scale = Vector2(1.38083, 2.52811)
+texture = ExtResource("5_apegc")
+
+[node name="SpawnerPosition" type="Marker2D" parent="."]
+position = Vector2(1046, 231)
+script = ExtResource("10_oy10a")
+
+[node name="Timer" type="Timer" parent="SpawnerPosition"]
+wait_time = 1.5
+autostart = true
+
+[connection signal="timeout" from="SpawnerPosition/Timer" to="SpawnerPosition" method="_on_timer_timeout"]

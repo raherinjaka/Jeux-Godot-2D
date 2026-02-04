@@ -1,0 +1,290 @@
+[gd_scene load_steps=32 format=3 uid="uid://ywxfo8jprh2v"]
+
+[ext_resource type="Texture2D" uid="uid://d2v00hfyp8mk" path="res://asset/Fond/Noir.png" id="1_wl0mr"]
+[ext_resource type="Script" path="res://scène/Menu/fin.gd" id="1_wqjk3"]
+[ext_resource type="Script" path="res://scène/Menu/GPUParticles2D.gd" id="2_l3ha4"]
+[ext_resource type="Script" path="res://scène/Menu/GPUParticles2D2.gd" id="3_05lj2"]
+[ext_resource type="Script" path="res://stage/text.gd" id="5_25g3s"]
+[ext_resource type="FontFile" uid="uid://cmylkt5p3kvjr" path="res://asset/Fonts/Level 01 Bold.ttf" id="5_egbwj"]
+[ext_resource type="FontFile" uid="uid://csthnuxk7esci" path="res://asset/Fonts/Games.ttf" id="5_lddbk"]
+[ext_resource type="FontFile" uid="uid://dsyj1hnp4cavy" path="res://asset/Fonts/Riclane.ttf" id="5_vtq1l"]
+[ext_resource type="Script" path="res://scène/Menu/Start.gd" id="6_0ki5a"]
+[ext_resource type="Texture2D" uid="uid://bbax8ftmc6q1i" path="res://asset/Fond/star.png" id="9_lwpil"]
+[ext_resource type="AudioStream" uid="uid://bo8usyck0k42o" path="res://asset/Music/Menu/at_the_end_of_hope_intro.wav" id="11_ms51b"]
+
+[sub_resource type="Gradient" id="Gradient_u8wf5"]
+offsets = PackedFloat32Array(0.0510204, 0.357143, 0.734694, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 1, 1, 1, 0.74902, 0, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0fh6a"]
+gradient = SubResource("Gradient_u8wf5")
+
+[sub_resource type="Curve" id="Curve_gvhkl"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_b2rjc"]
+curve = SubResource("Curve_gvhkl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j008p"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 150.0
+initial_velocity_max = 300.0
+gravity = Vector3(0, 150, 0)
+damping_min = 50.0
+damping_max = 80.0
+scale_min = 2.0
+scale_max = 2.5
+scale_curve = SubResource("CurveTexture_b2rjc")
+color_ramp = SubResource("GradientTexture1D_0fh6a")
+
+[sub_resource type="Gradient" id="Gradient_7drcg"]
+offsets = PackedFloat32Array(0, 0.357143, 0.744898, 1)
+colors = PackedColorArray(1, 1, 0.278431, 1, 1, 0.54902, 0, 1, 1, 0.301961, 0.301961, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ffit8"]
+gradient = SubResource("Gradient_7drcg")
+
+[sub_resource type="Curve" id="Curve_434vw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dxnb1"]
+curve = SubResource("Curve_434vw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6y8f7"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 100, 0)
+damping_min = 50.0
+damping_max = 80.0
+scale_min = 2.0
+scale_max = 2.5
+scale_curve = SubResource("CurveTexture_dxnb1")
+color_ramp = SubResource("GradientTexture1D_ffit8")
+
+[sub_resource type="GDScript" id="GDScript_qbv74"]
+script/source = "extends RichTextLabel
+
+func _ready():
+	pivot_offset = size / 2
+	scale = Vector2(0, 0)
+	var tween = create_tween()
+	
+	tween.tween_property(self, \"scale\", Vector2(1, 1), 0.6)\\
+		.set_trans(Tween.TRANS_BACK)\\
+		.set_ease(Tween.EASE_OUT)
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7780f"]
+bg_color = Color(0.368627, 0.352941, 0.411765, 0.12549)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xcdnq"]
+bg_color = Color(0.698039, 0.666667, 0.658824, 0.0313726)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6kyn7"]
+bg_color = Color(0.439216, 0.45098, 0.466667, 0.12549)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_my1x4"]
+bg_color = Color(0.698039, 0.701961, 0.709804, 0.0156863)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 2
+
+[sub_resource type="Curve" id="Curve_w4gbf"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_o0ufy"]
+curve = SubResource("Curve_w4gbf")
+
+[sub_resource type="Curve" id="Curve_pjl0a"]
+_data = [Vector2(0.0042735, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.637736), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4p8k0"]
+curve = SubResource("Curve_pjl0a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pxkg0"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(600, 360, 1)
+angle_min = 0.5
+angle_max = 1.0
+angle_curve = SubResource("CurveTexture_o0ufy")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.6
+scale_curve = SubResource("CurveTexture_4p8k0")
+
+[node name="Fin" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wqjk3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_wl0mr")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(751, 124)
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_j008p")
+lifetime = 1.5
+explosiveness = 1.0
+script = ExtResource("2_l3ha4")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="."]
+position = Vector2(974, 342)
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_j008p")
+lifetime = 1.5
+explosiveness = 1.0
+script = ExtResource("2_l3ha4")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(413, 448)
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_6y8f7")
+lifetime = 1.5
+explosiveness = 1.0
+script = ExtResource("3_05lj2")
+
+[node name="GPUParticles2D4" type="GPUParticles2D" parent="."]
+position = Vector2(125, 64)
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_6y8f7")
+lifetime = 1.5
+explosiveness = 1.0
+script = ExtResource("3_05lj2")
+
+[node name="text" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = -16.0
+offset_right = 126.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_vtq1l")
+theme_override_font_sizes/font_size = 20
+text = "Ennemis éliminés : 40"
+script = ExtResource("5_25g3s")
+
+[node name="Label" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(176, 55)
+theme_override_fonts/normal_font = ExtResource("5_lddbk")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "
+[center][wave amp=50 freq=3][pulse speed=2 height=0.2][center][rainbow freq=0.5 sat=0.6 val=0.9]VICTOIRE[/rainbow][/center][/pulse][/wave][/center]"
+script = SubResource("GDScript_qbv74")
+
+[node name="Quit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -81.5
+offset_top = 176.0
+offset_right = 81.5
+offset_bottom = 234.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_egbwj")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_7780f")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xcdnq")
+text = "Quit"
+script = ExtResource("6_0ki5a")
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = 76.0
+offset_right = 114.0
+offset_bottom = 134.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_egbwj")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_6kyn7")
+theme_override_styles/hover = SubResource("StyleBoxFlat_my1x4")
+text = "Restart"
+script = ExtResource("6_0ki5a")
+
+[node name="GPUParticles2D5" type="GPUParticles2D" parent="."]
+position = Vector2(489, 170)
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_pxkg0")
+texture = ExtResource("9_lwpil")
+lifetime = 5.0
+visibility_rect = Rect2(-100, -100, 243.09, 200)
+local_coords = true
+
+[node name="GPUParticles2D6" type="GPUParticles2D" parent="."]
+position = Vector2(215, 344)
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_pxkg0")
+texture = ExtResource("9_lwpil")
+lifetime = 5.0
+visibility_rect = Rect2(-100, -100, 243.09, 200)
+local_coords = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_ms51b")
+autoplay = true
+
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]

@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://bk4jrth8sr4eq"]
+
+[ext_resource type="Script" path="res://Ennemie1.gd" id="1_kte52"]
+[ext_resource type="Texture2D" uid="uid://bm0odrmvxuqdt" path="res://scène/Enemy/v-yellow.png" id="2_l26sy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1w8sf"]
+radius = 29.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_24lhf"]
+size = Vector2(94, 63)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pceyx"]
+size = Vector2(362, 106)
+
+[node name="Ennemie1" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_kte52")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(169, 86)
+target_position = Vector2(-132, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(167, 75)
+texture = ExtResource("2_l26sy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(157, 80)
+shape = SubResource("CircleShape2D_1w8sf")
+
+[node name="HitBox" type="Area2D" parent="."]
+position = Vector2(-14, 39)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(176, 40.5)
+shape = SubResource("RectangleShape2D_24lhf")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(-310, 55)
+shape = SubResource("RectangleShape2D_pceyx")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(104, 88)
+
+[node name="FireTimer" type="Timer" parent="."]
+
+[node name="ExplosionPos" type="Marker2D" parent="."]
+position = Vector2(159, 82)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(165, 74)
+scale = Vector2(5.65, 4.95)
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

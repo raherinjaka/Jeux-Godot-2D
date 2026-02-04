@@ -1,0 +1,129 @@
+[gd_scene load_steps=6 format=3 uid="uid://i0oo56j44ua0"]
+
+[ext_resource type="Theme" uid="uid://bsd8gqjrjk81b" path="res://asset/Theme/new_theme.tres" id="1_huchm"]
+[ext_resource type="Script" path="res://scène/Menu/credits.gd" id="1_i27lg"]
+[ext_resource type="FontFile" uid="uid://bslojlq1fdb2w" path="res://asset/Fonts/PixelOperator8-Bold.ttf" id="1_y843v"]
+[ext_resource type="Texture2D" uid="uid://cpobmyxjxy2eb" path="res://asset/Bouttons/wd_close.png" id="2_psr1s"]
+[ext_resource type="FontFile" uid="uid://dsyj1hnp4cavy" path="res://asset/Fonts/Riclane.ttf" id="4_5hgrx"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_i27lg")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 28.95
+anchor_bottom = 16.25
+offset_top = -23.0
+offset_right = 254.0
+offset_bottom = 295.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0235294, 0.0235294, 0.0235294, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+anchor_right = 28.875
+anchor_bottom = 16.15
+offset_top = -4.0
+offset_right = 212.0
+offset_bottom = 173.0
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("1_huchm")
+text = "X"
+icon = ExtResource("2_psr1s")
+icon_alignment = 1
+
+[node name="Titre" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_colors/font_color = Color(0.694118, 0.529412, 0.184314, 1)
+theme_override_fonts/font = ExtResource("1_y843v")
+theme_override_font_sizes/font_size = 36
+text = "Credits"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5hgrx")
+theme_override_font_sizes/font_size = 19
+text = "Conception et développement du jeu : 
+- RAHERINJAKA Toky Tambiniaina"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.694118, 0.529412, 0.184314, 1)
+theme_override_fonts/font = ExtResource("1_y843v")
+theme_override_font_sizes/font_size = 36
+text = "Graphismes"
+
+[node name="HSeparator4" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Control3" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5hgrx")
+theme_override_font_sizes/font_size = 19
+text = "Ressources graphiques et visuelles
+
+- Sprites et Textures :
+		            GameArt : pour les assets ( son - fond - sprite - animation)
+            Kenney : pour les musiques du menu principale et fond du jeux
+"
+
+[node name="HSeparator5" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Control4" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.694118, 0.529412, 0.184314, 1)
+theme_override_fonts/font = ExtResource("1_y843v")
+theme_override_font_sizes/font_size = 36
+text = "Aide"
+
+[node name="HSeparator6" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Control5" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_5hgrx")
+theme_override_font_sizes/font_size = 19
+text = "
+- ZEF 	:  youtube.com/c/TUTOUNITYFR (Pour apprendre les bases sur Godot)
+		- EB - PIXART GAMING (pour les mouvements)
+		- @benji - tuto (Système de tire)"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,89 @@
+[gd_scene load_steps=13 format=3 uid="uid://cnyn6cicyugn1"]
+
+[ext_resource type="Texture2D" uid="uid://bdtno2w2mb5ve" path="res://asset/outil/ChatGPT Image 1 août 2025, 23_11_39.png" id="1_gsx25"]
+[ext_resource type="Script" path="res://scène/arme/missile_space.gd" id="1_ny237"]
+[ext_resource type="Texture2D" uid="uid://chidf1prgap8n" path="res://asset/outil/spaceEffects_014.png" id="2_sua20"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ux32h"]
+size = Vector2(43, 9)
+
+[sub_resource type="Curve" id="Curve_svaco"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0.00434783, -357.283), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_kfg4s"]
+curve = SubResource("Curve_svaco")
+
+[sub_resource type="Gradient" id="Gradient_5kcfg"]
+offsets = PackedFloat32Array(0, 0.125, 0.208333, 0.5625, 0.729167, 1)
+colors = PackedColorArray(1, 1, 1, 0.615686, 0, 0, 0, 1, 1, 1, 1, 0.333333, 0.00351917, 0.00351917, 0.00351917, 1, 0.00392157, 0.00392157, 0.00392157, 0.278431, 0.00392157, 0.00392157, 0.00392157, 0.278431)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1os2l"]
+gradient = SubResource("Gradient_5kcfg")
+
+[sub_resource type="Curve" id="Curve_cvt3h"]
+_data = [Vector2(0.0130435, 0.245283), 0.0, 0.0, 0, 0, Vector2(0.978261, 0.577358), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fskwk"]
+curve = SubResource("Curve_cvt3h")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_otlaq"]
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angular_velocity_curve = SubResource("CurveTexture_kfg4s")
+gravity = Vector3(0, 98, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_fskwk")
+color = Color(22.656, 13.281, 25.781, 0.313)
+color_ramp = SubResource("GradientTexture1D_1os2l")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lqdwj"]
+radius = 18.6815
+
+[node name="MissileSpace" type="Area2D" groups=["player_projectiles"]]
+visibility_layer = 2
+collision_layer = 4
+collision_mask = 10
+script = ExtResource("1_ny237")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.0458986, 0.0332844)
+texture = ExtResource("1_gsx25")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_ux32h")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.19209e-06, 1)
+scale = Vector2(3.1, 1.3)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-44, 0)
+rotation = 1.5708
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_otlaq")
+texture = ExtResource("2_sua20")
+lifetime = 0.8
+local_coords = true
+
+[node name="Area2D" type="Area2D" parent="."]
+visibility_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(4, 1)
+shape = SubResource("CircleShape2D_lqdwj")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

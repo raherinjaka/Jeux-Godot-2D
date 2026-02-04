@@ -1,0 +1,83 @@
+[gd_scene load_steps=12 format=3 uid="uid://dy2xibi3ce1b2"]
+
+[ext_resource type="Script" path="res://scène/Enemy/turret.gd" id="1_q812i"]
+[ext_resource type="Texture2D" uid="uid://dita6sd1f5n1m" path="res://scène/Enemy/turret-1.png" id="1_sxa6m"]
+[ext_resource type="Texture2D" uid="uid://b871q2bxqsog4" path="res://scène/Enemy/turret-2.png" id="2_wsd6c"]
+[ext_resource type="Texture2D" uid="uid://cf2uy5a1p16y7" path="res://scène/Enemy/turret-3.png" id="3_hbhk0"]
+[ext_resource type="Texture2D" uid="uid://dqq80dlno84vi" path="res://scène/Enemy/turret-4.png" id="4_ypx0o"]
+[ext_resource type="Texture2D" uid="uid://v0v0sa3tlvl8" path="res://scène/Enemy/turret-5.png" id="5_8paih"]
+[ext_resource type="Texture2D" uid="uid://ci3gkq56ysj57" path="res://scène/Enemy/turret-6.png" id="6_ki0fu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ixxrv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_sxa6m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_wsd6c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hbhk0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ypx0o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8paih")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ki0fu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3nl3k"]
+radius = 15.2971
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8n1x1"]
+size = Vector2(201, 58)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t08f4"]
+size = Vector2(18, 22)
+
+[node name="Turret" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_q812i")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.28, 1.30435)
+sprite_frames = SubResource("SpriteFrames_ixxrv")
+animation = &"idle"
+frame_progress = 0.409251
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3nl3k")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(-122, -94)
+shape = SubResource("RectangleShape2D_8n1x1")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(-27, -10)
+
+[node name="Muzzle2" type="Marker2D" parent="."]
+position = Vector2(24, -11)
+
+[node name="FireTimer" type="Timer" parent="."]
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_t08f4")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

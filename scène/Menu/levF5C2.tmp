@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://sapprdmpw4vo"]
+
+[ext_resource type="Script" path="res://scène/Menu/level_2.gd" id="1_vei5s"]
+[ext_resource type="PackedScene" uid="uid://cp0qn372ayn58" path="res://scène/PLayer/player.tscn" id="2_2aoef"]
+[ext_resource type="PackedScene" uid="uid://dy2xibi3ce1b2" path="res://scène/Enemy/turret.tscn" id="3_0y52k"]
+
+[node name="Level2" type="Node2D"]
+script = ExtResource("1_vei5s")
+
+[node name="Player" parent="." instance=ExtResource("2_2aoef")]
+
+[node name="Turret" parent="." instance=ExtResource("3_0y52k")]
+position = Vector2(552, 500)

@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwwo6gigbvicc"]
+
+[ext_resource type="Texture2D" uid="uid://dmuj8o1yubadj" path="res://asset/Vie/lifebar_vide.png" id="1_tdmcy"]
+[ext_resource type="Texture2D" uid="uid://rxirmnmubpc3" path="res://asset/Vie/lifebar_pleine.png" id="2_an53d"]
+[ext_resource type="Script" path="res://asset/Vie/LifeBar.gd" id="3_lq5y3"]
+[ext_resource type="AudioStream" uid="uid://lbncsguq06fg" path="res://asset/Sound/game_over_bad_chest.wav" id="4_unul1"]
+
+[node name="LifeBar" type="TextureProgressBar"]
+anchors_preset = -1
+anchor_right = 0.12
+anchor_bottom = 0.168
+offset_right = 73.76
+offset_bottom = 31.136
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("1_tdmcy")
+texture_progress = ExtResource("2_an53d")
+script = ExtResource("3_lq5y3")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_unul1")

@@ -1,0 +1,160 @@
+[gd_scene load_steps=15 format=3 uid="uid://bwfbjc2dqfxhh"]
+
+[ext_resource type="Script" path="res://scène/Menu/MenuSpacial.gd" id="1_vfjuk"]
+[ext_resource type="FontFile" uid="uid://cmylkt5p3kvjr" path="res://asset/Fonts/Level 01 Bold.ttf" id="2_418r3"]
+[ext_resource type="Texture2D" uid="uid://cyfremeejxwq1" path="res://asset/Fond/1755585009209.jpg" id="2_j7fry"]
+[ext_resource type="Script" path="res://scène/Menu/Start.gd" id="3_dwdyb"]
+[ext_resource type="Texture2D" uid="uid://bq8rvy0eo4nqx" path="res://asset/Fond/logo.png" id="3_vy1uq"]
+[ext_resource type="Texture2D" uid="uid://bbax8ftmc6q1i" path="res://asset/Fond/star.png" id="4_73cjw"]
+[ext_resource type="AudioStream" uid="uid://bf33s6g8imk" path="res://asset/Music/Menu/gameplay_theme.ogg" id="6_vkl3d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j7ikq"]
+bg_color = Color(0.611765, 0.482353, 0.890196, 0.12549)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sndap"]
+bg_color = Color(0.0470588, 0.0470588, 0.647059, 0.490196)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 2
+
+[sub_resource type="Curve" id="Curve_70f02"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mpuv1"]
+curve = SubResource("Curve_70f02")
+
+[sub_resource type="Curve" id="Curve_17s4o"]
+_data = [Vector2(0.0652174, 0.54717), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_d15xb"]
+curve = SubResource("Curve_17s4o")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_04pst"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(600, 360, 1)
+angle_min = 0.5
+angle_max = 1.0
+angle_curve = SubResource("CurveTexture_mpuv1")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_d15xb")
+
+[node name="MenuSpacial" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("1_vfjuk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -269.0
+offset_top = -292.0
+offset_right = 266.0
+offset_bottom = -77.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="Start" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_418r3")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_j7ikq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sndap")
+text = "Start"
+script = ExtResource("3_dwdyb")
+
+[node name="Credit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_418r3")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_j7ikq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sndap")
+text = "Credit"
+script = ExtResource("3_dwdyb")
+
+[node name="Commande" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_418r3")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_j7ikq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sndap")
+text = "Commande"
+script = ExtResource("3_dwdyb")
+
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_418r3")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_j7ikq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sndap")
+text = "Quit"
+script = ExtResource("3_dwdyb")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/ParallaxBackground"]
+position = Vector2(640, 284)
+scale = Vector2(1.04898, 1)
+texture = ExtResource("2_j7fry")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/ParallaxBackground"]
+position = Vector2(635, 163)
+scale = Vector2(0.53504, 0.455446)
+texture = ExtResource("3_vy1uq")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="CanvasLayer/ParallaxBackground"]
+position = Vector2(767, 572)
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_04pst")
+texture = ExtResource("4_73cjw")
+lifetime = 5.0
+visibility_rect = Rect2(-100, -100, 243.09, 200)
+local_coords = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="CanvasLayer/ParallaxBackground"]
+position = Vector2(387, 177)
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_04pst")
+texture = ExtResource("4_73cjw")
+lifetime = 5.0
+visibility_rect = Rect2(-100, -100, 243.09, 200)
+local_coords = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_vkl3d")
+volume_db = -12.093
+autoplay = true
+
+[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Start" to="VBoxContainer/Start" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/Credit" to="." method="_on_credit_pressed"]
+[connection signal="pressed" from="VBoxContainer/Credit" to="VBoxContainer/Credit" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/Commande" to="." method="_on_commande_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="VBoxContainer/Quit" method="_on_pressed"]

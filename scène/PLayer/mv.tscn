@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0ie1mj3so5ly"]
+
+[ext_resource type="Script" path="res://Mv.gd" id="1_u6y6i"]
+[ext_resource type="Texture2D" uid="uid://bm0odrmvxuqdt" path="res://scène/Enemy/v-yellow.png" id="2_ygdah"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_reud4"]
+size = Vector2(32, 36)
+
+[node name="Mv" type="CharacterBody2D"]
+script = ExtResource("1_u6y6i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ygdah")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6, 4)
+shape = SubResource("RectangleShape2D_reud4")

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://5jrdkogfegod"
+path="res://.godot/imported/CLOCKTick_Chronometre 2 (ID 2138)_LaSonotheque.fr.wav-f07bcf51eee2e8df6e8a8e2f4743f0ba.sample"
+
+[deps]
+
+source_file="res://asset/Music/Menu/CLOCKTick_Chronometre 2 (ID 2138)_LaSonotheque.fr.wav"
+dest_files=["res://.godot/imported/CLOCKTick_Chronometre 2 (ID 2138)_LaSonotheque.fr.wav-f07bcf51eee2e8df6e8a8e2f4743f0ba.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

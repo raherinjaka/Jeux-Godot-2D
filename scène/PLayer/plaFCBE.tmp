@@ -1,0 +1,142 @@
+[gd_scene load_steps=22 format=3 uid="uid://cp0qn372ayn58"]
+
+[ext_resource type="Script" path="res://scène/PLayer/player.gd" id="1_nhgcb"]
+[ext_resource type="Texture2D" uid="uid://bswh3tmvt7ihc" path="res://asset/Vehicule/player/spaceship-unit.png" id="1_ofneo"]
+[ext_resource type="AudioStream" uid="uid://bx076iqt7ej5j" path="res://asset/Sound/beam.ogg" id="2_m43ne"]
+[ext_resource type="AudioStream" uid="uid://b3b0txfe8882n" path="res://asset/Sound/thrust_start.wav" id="3_560tn"]
+[ext_resource type="AudioStream" uid="uid://b45rmkkg4slt8" path="res://asset/Sound/cannon_fire.ogg" id="4_eesnu"]
+[ext_resource type="AudioStream" uid="uid://lbncsguq06fg" path="res://asset/Sound/game_over_bad_chest.wav" id="5_6frb3"]
+[ext_resource type="AudioStream" uid="uid://53fj75krnoxy" path="res://asset/Sound/space.mp3" id="6_xo0ob"]
+[ext_resource type="Texture2D" uid="uid://chidf1prgap8n" path="res://asset/outil/spaceEffects_014.png" id="7_chdw3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ld4q"]
+atlas = ExtResource("1_ofneo")
+region = Rect2(0, 0, 106, 77)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1w35l"]
+atlas = ExtResource("1_ofneo")
+region = Rect2(106, 0, 106, 77)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uenfl"]
+atlas = ExtResource("1_ofneo")
+region = Rect2(212, 0, 106, 77)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rypm"]
+atlas = ExtResource("1_ofneo")
+region = Rect2(318, 0, 106, 77)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ldljj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ld4q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1w35l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uenfl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rypm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h5uvg"]
+size = Vector2(82.5, 48.5)
+
+[sub_resource type="Curve" id="Curve_47lbc"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0.00434783, -357.283), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5u1bl"]
+curve = SubResource("Curve_47lbc")
+
+[sub_resource type="Gradient" id="Gradient_0xbwm"]
+offsets = PackedFloat32Array(0.114583, 0.229167, 0.520833, 0.760417, 0.947917)
+colors = PackedColorArray(0, 0, 0.756863, 0.133333, 0.490196, 0.643137, 0.945098, 0.4, 0.952941, 0.439216, 0.713726, 0.658824, 0, 0.192157, 0.313726, 0.164706, 0, 0, 0, 0.141176)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wsu22"]
+gradient = SubResource("Gradient_0xbwm")
+
+[sub_resource type="Curve" id="Curve_l3v4k"]
+_data = [Vector2(0.0130435, 0.245283), 0.0, 0.0, 0, 0, Vector2(0.978261, 0.577358), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pdct0"]
+curve = SubResource("Curve_l3v4k")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6p8ok"]
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angular_velocity_curve = SubResource("CurveTexture_5u1bl")
+gravity = Vector3(0, 98, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_pdct0")
+color_ramp = SubResource("GradientTexture1D_wsu22")
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 2
+script = ExtResource("1_nhgcb")
+speed = null
+fire_rate = null
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(90, 112)
+limit_left = 0
+limit_top = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(143, 59)
+scale = Vector2(0.82783, 1.5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
+position = Vector2(65.9102, 6.08333)
+scale = Vector2(1.28632, 0.967532)
+sprite_frames = SubResource("SpriteFrames_ldljj")
+animation = &"idle"
+frame_progress = 0.768918
+
+[node name="FirePosition" type="Marker2D" parent="."]
+position = Vector2(268, 91)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(203, 69)
+shape = SubResource("RectangleShape2D_h5uvg")
+debug_color = Color(0.960784, 0.984314, 0.976471, 0.419608)
+
+[node name="FireSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_m43ne")
+volume_db = -15.0
+
+[node name="EngineSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_560tn")
+
+[node name="MissileSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_eesnu")
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_6frb3")
+
+[node name="MusicSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_xo0ob")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(166, 92)
+rotation = 1.5708
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_6p8ok")
+texture = ExtResource("7_chdw3")
+lifetime = 0.8
+local_coords = true
