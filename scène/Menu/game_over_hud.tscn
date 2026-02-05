@@ -42,8 +42,8 @@ texture_pressed = ExtResource("5_e3wce")
 script = ExtResource("7_j3i73")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(601.75, 236.656)
-scale = Vector2(1.67432, 0.945984)
+position = Vector2(571, 267)
+scale = Vector2(1.71314, 1.2308)
 texture = ExtResource("1_o8gce")
 
 [node name="FinalScoreLabel" type="Label" parent="."]
