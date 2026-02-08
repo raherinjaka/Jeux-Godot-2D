@@ -21,6 +21,11 @@ Events="*res://events.gd"
 GameManager="*res://GameManager.gd"
 Transition="*res://scène/Menu/transition.tscn"
 
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
 [input]
 
 fire={
