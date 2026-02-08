@@ -167,4 +167,12 @@ func die():
 			
 	await get_tree().create_timer(2.0).timeout
 	queue_free()
-	
+
+func _input(event):
+	if event is InputEventScreenTouch or event is InputEventMouseMotion:
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			position = event.position
+			
+			Input.action_press("fire")
+		else:
+			Input.action_release("fire")
