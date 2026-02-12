@@ -74,6 +74,11 @@ func _physics_process(delta):
 	position.y = clamp(position.y, 0, screen_size.y)
 	#ceci est untest
 func handle_movement(_delta):
+	
+	# Si on utilise la souris, on ignore le clavier
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT): 
+		return
+		
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	velocity = direction * speed
 	move_and_slide()
@@ -169,10 +174,17 @@ func die():
 	queue_free()
 
 func _input(event):
-	if event is InputEventScreenTouch or event is InputEventMouseMotion:
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-			position = event.position
-			
-			Input.action_press("fire")
-		else:
-			Input.action_release("fire")
+	# On regarde si le bouton gauche (ou le doigt) est appuyé
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		# On récupère la position de la souris/doigt dans le monde du jeu
+		var mouse_pos = get_global_mouse_position()
+		
+		# On déplace le vaisseau (X et Y)
+		position = mouse_pos
+		
+		# On force l'action de tir
+		Input.action_press("fire")
+	
+	# Quand on relâche le clic ou le doigt
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+		Input.action_release("fire")
