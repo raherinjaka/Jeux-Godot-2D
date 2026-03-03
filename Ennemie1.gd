@@ -9,12 +9,12 @@ extends CharacterBody2D
 @onready var muzzle = $Muzzle 
 
 var can_shoot := true
-var player_target : Node2D = null # On stocke le player ici quand il entre dans la zone
+var player_target : Node2D = null
 
 func _ready():
 	add_to_group("enemy")
 	fire_timer.wait_time = 1.5
-	# On connecte le timer par code s 'il ne l'est pas dans l'éditeur
+	
 	if not fire_timer.timeout.is_connected(_on_fire_timer_timeout):
 		fire_timer.timeout.connect(_on_fire_timer_timeout)
 
@@ -47,14 +47,13 @@ func shoot():
 			projectile.direction = direction
 
 func _on_hit_box_body_entered(body):
-	# 1. Collision avec le joueur (corps à corps)
+
 	if body.is_in_group("player"):
 		var life_bar = get_tree().current_scene.find_child("LifeBar", true, false)
 		if life_bar and life_bar.has_method("lose_life"):
 			life_bar.lose_life()
 		die()
 
-	# 2. Collision avec un projectile du joueur
 	if body.is_in_group("player_projectile"):
 		body.queue_free() # Détruit la balle du joueur
 		die()

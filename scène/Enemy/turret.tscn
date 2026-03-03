@@ -38,7 +38,7 @@ animations = [{
 radius = 15.2971
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8n1x1"]
-size = Vector2(201, 58)
+size = Vector2(201, 187)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t08f4"]
 size = Vector2(18, 22)
@@ -60,7 +60,7 @@ shape = SubResource("CircleShape2D_3nl3k")
 [node name="DetectionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-position = Vector2(-122, -94)
+position = Vector2(-122, -158.5)
 shape = SubResource("RectangleShape2D_8n1x1")
 
 [node name="Muzzle" type="Marker2D" parent="."]

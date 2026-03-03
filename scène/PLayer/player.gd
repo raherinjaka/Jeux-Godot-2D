@@ -174,17 +174,12 @@ func die():
 	queue_free()
 
 func _input(event):
-	# On regarde si le bouton gauche (ou le doigt) est appuyé
+
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		# On récupère la position de la souris/doigt dans le monde du jeu
 		var mouse_pos = get_global_mouse_position()
-		
-		# On déplace le vaisseau (X et Y)
 		position = mouse_pos
 		
-		# On force l'action de tir
 		Input.action_press("fire")
 	
-	# Quand on relâche le clic ou le doigt
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 		Input.action_release("fire")

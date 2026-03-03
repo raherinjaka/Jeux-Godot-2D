@@ -66,19 +66,18 @@ func shoot():
 			projectile.add_to_group("enemy_projectiles")
 
 func _on_hit_box_body_entered(body):
-	# 1. Si c'est un missile du joueur
+	# Si c'est un missile du joueur
 	if body.is_in_group("player_projectiles"):
-		body.queue_free() # ON DÉTRUIT LE MISSILE DU JOUEUR (très important !)
+		body.queue_free()
 		die()
 
-	# 2. Si c'est le corps du joueur (collision directe)
+	#  Si c'est le corps du joueur
 	elif body.is_in_group("player"):
 		# On blesse le joueur
 		var life_bar = get_tree().current_scene.find_child("LifeBar", true, false)
 		if life_bar and life_bar.has_method("lose_life"):
 			life_bar.lose_life()
-		
-		# On détruit quand même la tourelle (car le joueur lui a foncé dedans)
+			
 		die()
 
 func die():

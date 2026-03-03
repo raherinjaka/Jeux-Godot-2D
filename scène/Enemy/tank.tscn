@@ -1,0 +1,90 @@
+[gd_scene load_steps=11 format=3 uid="uid://7825uo3yynfm"]
+
+[ext_resource type="Texture2D" uid="uid://dvf23rx51yww2" path="res://scène/Enemy/tank-unit.png" id="1_pin0f"]
+[ext_resource type="Script" path="res://scène/Enemy/tank.gd" id="1_vvyiu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clgkn"]
+atlas = ExtResource("1_pin0f")
+region = Rect2(0, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bpb4"]
+atlas = ExtResource("1_pin0f")
+region = Rect2(128, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afvdi"]
+atlas = ExtResource("1_pin0f")
+region = Rect2(256, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ghbn"]
+atlas = ExtResource("1_pin0f")
+region = Rect2(384, 0, 128, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_807wj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clgkn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7bpb4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afvdi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ghbn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ntsfo"]
+size = Vector2(70, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3587e"]
+size = Vector2(67, 49)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rfc0d"]
+size = Vector2(745, 68)
+
+[node name="tank" type="CharacterBody2D"]
+position = Vector2(484, 423)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_vvyiu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_807wj")
+frame_progress = 0.689064
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-8, 3)
+shape = SubResource("RectangleShape2D_ntsfo")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 53)
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-9, 4)
+shape = SubResource("RectangleShape2D_3587e")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(56, -340)
+shape = SubResource("RectangleShape2D_rfc0d")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(65, -2)
+
+[node name="FireTimer" type="Timer" parent="."]
+
+[node name="ExplosionPos" type="Marker2D" parent="."]
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]

@@ -36,7 +36,7 @@ offset_bottom = 173.0
 [node name="Button" type="Button" parent="VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 0
 theme = ExtResource("1_huchm")
 text = "X"
 icon = ExtResource("2_psr1s")
