@@ -2,7 +2,7 @@ extends Area2D
 
 @export var speed := 350.0  
 @export var turn_speed := 2.5   
-@export var lifetime := 5.0      
+@export var lifetime := 4.0      
 
 @onready var explosion_scene = preload("res://asset/outil/Explosion/exlplosion_animation.tscn")
 @onready var hit_sound = preload("res://asset/Sound/explosion.ogg") 
@@ -32,12 +32,12 @@ func _physics_process(delta):
 
 	rotation = velocity.angle()
 
-func _on_body_entered(body):
-	_check_collision(body)
-
 func _on_area_entered(area):
 	_check_collision(area)
 
+func _on_area_2d_body_entered(body):
+	_check_collision(body)
+	
 func _check_collision(object):
 
 	if object.is_in_group("enemy"):
@@ -74,3 +74,10 @@ func _play_sound():
 		get_tree().root.add_child(sound_player)
 		sound_player.play()
 		sound_player.finished.connect(sound_player.queue_free)
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	queue_free()
+
+
+
